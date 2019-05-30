@@ -2,8 +2,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Arrays;
+
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         FirefoxDriver driver=new FirefoxDriver();
         driver.get("http://google.com/");
 
@@ -33,5 +38,13 @@ public class Main {
         System.out.println(link3);
 
         driver.quit();
+
+//        Write links to csv file
+        String csvFile = "links.csv";
+        Writer fileWriter = new FileWriter(csvFile);
+
+        fileWriter.write(link1+"\n"+link2+"\n"+link3);
+        fileWriter.close();
+
     }
 }

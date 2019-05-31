@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Csvhandler {
     public Boolean csvhandler(ArrayList names, ArrayList links) throws IOException {
-        String csvFile = "links.csv";
+        String csvFile = "google_links.csv";
         Writer fileWriter = new FileWriter(csvFile);
 
         fileWriter.write("name,link\n");

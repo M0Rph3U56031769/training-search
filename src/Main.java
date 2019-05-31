@@ -14,6 +14,7 @@ public class Main {
         ArrayList links = new ArrayList();
         String trainingtext = "selenium training";
         String searchengine_url = "http://google.com/";
+
         String google_input_field = "input[name=q]";
         String google_search_button = "center:nth-child(1) > input:nth-child(1)";
         String google_category_videos = "div.hdtb-mitem:nth-child(3) > a:nth-child(1)";
@@ -29,10 +30,14 @@ public class Main {
         google_searchresult_link.add(") > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1)");
 
         Google google_properties = new Google();
+        trainingtext = google_properties.trainingtext;
+        searchengine_url = google_properties.url;
+
+
         FirefoxDriver driver=new FirefoxDriver();
 
-        System.out.println(google_properties.url);
         driver.get(searchengine_url);
+
 
 //        fill the input field
         WebElement element=driver.findElement(By.cssSelector(google_input_field));

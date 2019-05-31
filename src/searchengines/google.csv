@@ -1,2 +1,3 @@
-searchengine_url,http://google.com/
-google_input_field,input[name=q]
+"searchengine_url","http://google.com/"
+"google_input_field","input[name=q]"
+"trainingtext","selenium training"

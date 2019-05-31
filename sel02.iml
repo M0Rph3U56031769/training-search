@@ -28,5 +28,6 @@
         <jarDirectory url="file://D:/selenium-java/libs" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="com.opencsv:opencsv:4.6" level="project" />
   </component>
 </module>

@@ -1,0 +1,2 @@
+searchengine_url,http://google.com/
+google_input_field,input[name=q]

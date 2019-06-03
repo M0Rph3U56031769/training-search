@@ -5,33 +5,30 @@ import searchengines.Google;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        ArrayList names = new ArrayList();
-        ArrayList links = new ArrayList();
-        String trainingtext = "selenium training";
-        String searchengine_url = "http://google.com/";
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<String> links = new ArrayList<>();
+        String training_text;
+        String searchengine_url;
+        String google_input_field;
 
-        String google_input_field = "input[name=q]";
-        String google_search_button = "center:nth-child(1) > input:nth-child(1)";
-        String google_category_videos = "div.hdtb-mitem:nth-child(3) > a:nth-child(1)";
-        Integer namecounter=1;
-        int linkcounter=1;
-
-        List google_searchresult_name = new ArrayList();
-        google_searchresult_name.add("div.g:nth-child(");
-        google_searchresult_name.add(") > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > h3:nth-child(1)");
-
-        List google_searchresult_link = new ArrayList();
-        google_searchresult_link.add("div.g:nth-child(");
-        google_searchresult_link.add(") > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1)");
+        String google_search_button;
+        String google_category_videos;
+        int name_counter=1;
+        int link_counter=1;
 
         Google google_properties = new Google();
-        trainingtext = google_properties.trainingtext;
-        searchengine_url = google_properties.url;
+
+        searchengine_url = google_properties.getGoogle_url();
+        google_input_field = google_properties.getInput_field();
+        training_text = google_properties.getTraining_text();
+        google_search_button = google_properties.getGoogle_search_button();
+        google_category_videos = google_properties.getGoogle_category_videos();
+        ArrayList<Object> google_searchresult_name = new ArrayList<Object>(google_properties.getGoogle_searchresult_name());
+        ArrayList<Object> google_searchresult_link = new ArrayList<Object>(google_properties.getGoogle_searchresult_link());
 
 
         FirefoxDriver driver=new FirefoxDriver();
@@ -41,7 +38,7 @@ public class Main {
 
 //        fill the input field
         WebElement element=driver.findElement(By.cssSelector(google_input_field));
-        element.sendKeys(trainingtext);
+        element.sendKeys(training_text);
 
 //        click on search button
         WebElement button=driver.findElement(By.cssSelector(google_search_button));
@@ -52,43 +49,40 @@ public class Main {
         vidi.click();
 
 //        Collecting the 3 training links
-        WebElement firstCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0)+namecounter.toString()+google_searchresult_name.get(1)));
+        WebElement firstCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0) + Integer.toString(name_counter) + google_searchresult_name.get(1)));
         String name1 = firstCourseName.getText();
         String name1Converted = name1.replace(',','-');
         System.out.println(name1Converted);
         names.add(name1Converted);
-        namecounter++;
-        System.out.println(namecounter);
+        name_counter++;
 
-        WebElement firstcourse = driver.findElement(By.cssSelector(google_searchresult_link.get(0)+ Integer.toString(linkcounter) +google_searchresult_link.get(1)));
-        String link1 = firstcourse.getAttribute("href");
+        WebElement firstCourseLink = driver.findElement(By.cssSelector(google_searchresult_link.get(0) + Integer.toString(link_counter) + google_searchresult_link.get(1)));
+        String link1 = firstCourseLink.getAttribute("href");
         System.out.println(link1);
         links.add(link1);
-        linkcounter++;
+        link_counter++;
 
-        WebElement secondCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0)+namecounter.toString()+google_searchresult_name.get(1)));
+        WebElement secondCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0) + Integer.toString(name_counter) + google_searchresult_name.get(1)));
         String name2 = secondCourseName.getText();
         String name2Converted = name2.replace(',','-');
         System.out.println(name2Converted);
         names.add(name2Converted);
-        namecounter++;
-        System.out.println(namecounter);
+        name_counter++;
 
 
-        WebElement secondcourse = driver.findElement(By.cssSelector(google_searchresult_link.get(0)+ Integer.toString(linkcounter) +google_searchresult_link.get(1)));
+        WebElement secondcourse = driver.findElement(By.cssSelector(google_searchresult_link.get(0) + Integer.toString(link_counter) + google_searchresult_link.get(1)));
         String link2 = secondcourse.getAttribute("href");
         System.out.println(link2);
         links.add(link2);
-        namecounter++;
+        name_counter++;
 
-        WebElement thirdCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0)+namecounter.toString()+google_searchresult_name.get(1)));
+        WebElement thirdCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0) + Integer.toString(name_counter) + google_searchresult_name.get(1)));
         String name3 = thirdCourseName.getText();
         String name3Converted = name3.replace(',','-');
         System.out.println(name3Converted);
         names.add(name3Converted);
-        System.out.println(namecounter);
 
-        WebElement thirdcourse = driver.findElement(By.cssSelector(google_searchresult_link.get(0)+ Integer.toString(linkcounter) +google_searchresult_link.get(1)));
+        WebElement thirdcourse = driver.findElement(By.cssSelector(google_searchresult_link.get(0) + Integer.toString(link_counter) + google_searchresult_link.get(1)));
         String link3 = thirdcourse.getAttribute("href");
         System.out.println(link3);
         links.add(link3);
@@ -96,8 +90,8 @@ public class Main {
 
         driver.quit();
 
-        Csvhandler tofile = new Csvhandler();
-        tofile.csvhandler(names, links);
+        Csvhandler toFile = new Csvhandler();
+        toFile.csvhandler(names, links);
 
     }
 }

@@ -18,7 +18,6 @@ public class Main {
             System.exit(1);
         }
 
-
         System.out.println("NAMES FINAL: "+google_properties.getGoogle_searchresult_name().toString());
         System.out.println("LINKS FINAL: "+google_properties.getGoogle_searchresult_link().toString());
         Google.writeResultsToCsv(google_properties.getGoogle_searchresult_name(),google_properties.getGoogle_searchresult_link());

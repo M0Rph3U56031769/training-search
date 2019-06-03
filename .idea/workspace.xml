@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c813334-2597-4134-9d8d-cfdb41afadb3" name="Default Changelist" comment="">
+    <list default="true" id="9c813334-2597-4134-9d8d-cfdb41afadb3" name="Default Changelist" comment="encapsulation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sel02.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sel02.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Csvhandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/filehandling/Csvhandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/searchengines/Google.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/searchengines/Google.java" afterDir="false" />
     </list>
@@ -19,30 +19,57 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+            <state relative-caret-position="289">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1091#1099#0" expanded="true" />
-                <element signature="e#1216#1224#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/searchengines/Google.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="182">
+              <caret line="57" selection-start-line="57" selection-end-line="57" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#Google#0;class#Google#0" />
+                <element signature="method#csvReader#0;class#Google#0" />
+                <element signature="method#goStartPage#0;class#Google#0" />
+                <element signature="method#fillInputField#0;class#Google#0" />
+                <element signature="method#clickSearchButton#0;class#Google#0" />
+                <element signature="method#sitchCategoryToVideo#0;class#Google#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/searchengines/Google.java">
+        <entry file="file://$PROJECT_DIR$/src/filehandling/Csvhandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
-              <caret line="88" column="23" selection-start-line="88" selection-start-column="23" selection-end-line="88" selection-end-column="23" />
+            <state relative-caret-position="170">
+              <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/google_links.csv">
+          <provider selected="true" editor-type-id="csv-table-editor">
+            <state showInfoPanel="true" fixedHeaders="false" rowLines="3">
+              <column index="0" width="100" />
+              <column index="1" width="100" />
+            </state>
+          </provider>
+          <provider editor-type-id="csv-text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -53,18 +80,6 @@
           <provider selected="true" editor-type-id="csv-text-editor">
             <state relative-caret-position="136">
               <caret line="8" column="110" selection-start-line="8" selection-start-column="110" selection-end-line="8" selection-end-column="110" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Csvhandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -84,6 +99,11 @@
       <find>split</find>
       <find>searchengine_url</find>
       <find>input</find>
+      <find>Csvhandler</find>
+      <find>Csv</find>
+      <find>browser</find>
+      <find>names</find>
+      <find>getGoogle_searchresult_name</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -97,8 +117,10 @@
         <option value="$PROJECT_DIR$/src/searchengines/google.java" />
         <option value="$PROJECT_DIR$/src/Csvhandler.java" />
         <option value="$PROJECT_DIR$/src/searchengines/google.csv" />
-        <option value="$PROJECT_DIR$/src/searchengines/Google.java" />
+        <option value="$PROJECT_DIR$/src/searchengines/CsvReader.java" />
+        <option value="$PROJECT_DIR$/src/filehandling/Csvhandler.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/searchengines/Google.java" />
       </list>
     </option>
   </component>
@@ -154,6 +176,12 @@
               <item name="sel02" type="b2602c69:ProjectViewProjectNode" />
               <item name="sel02" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="filehandling" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sel02" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sel02" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="searchengines" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -174,8 +202,12 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="filehandling" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Daniel_Nagy1\IdeaProjects\sel02\src" />
     </key>
@@ -245,14 +277,20 @@
       <option name="project" value="LOCAL" />
       <updated>1559552929311</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="encapsulation">
+      <created>1559560417849</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1559560417849</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13219616" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13219616" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -262,7 +300,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3290461" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.26259378" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.26259378" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -270,7 +308,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.26045015" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.3290461" />
+      <window_info active="true" anchor="bottom" id="Messages" order="10" visible="true" weight="0.3290461" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -312,7 +350,8 @@
     <MESSAGE value="replace ',' to '-' in video titles (for proper csv handling)" />
     <MESSAGE value="removing some duplicate string&#10;prepare classification" />
     <MESSAGE value="- move hardcoded texts to google.csv&#10;- add .idea folder to VCS" />
-    <option name="LAST_COMMIT_MESSAGE" value="- move hardcoded texts to google.csv&#10;- add .idea folder to VCS" />
+    <MESSAGE value="encapsulation" />
+    <option name="LAST_COMMIT_MESSAGE" value="encapsulation" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -334,16 +373,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Csvhandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/links.csv">
       <provider selected="true" editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3">
@@ -354,14 +383,15 @@
       <provider editor-type-id="text-editor" />
       <provider editor-type-id="csv-text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/google_links.csv">
-      <provider selected="true" editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3">
-          <column index="0" width="100" />
-          <column index="1" width="100" />
+    <entry file="file://$PROJECT_DIR$/src/searchengines/CsvReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
-      <provider editor-type-id="csv-text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/searchengines/google.csv">
       <provider editor-type-id="csv-table-editor">
@@ -373,10 +403,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/searchengines/Google.java">
+    <entry file="jar://C:/Program Files/Java/jdk-12.0.1/lib/src.zip!/java.base/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="88" column="23" selection-start-line="88" selection-start-column="23" selection-end-line="88" selection-end-column="23" />
+        <state relative-caret-position="221">
+          <caret line="1558" column="26" selection-start-line="1558" selection-start-column="26" selection-end-line="1558" selection-end-column="26" />
+          <folding>
+            <element signature="e#55962#55963#0" expanded="true" />
+            <element signature="e#56019#56020#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/google_links.csv">
+      <provider selected="true" editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3">
+          <column index="0" width="100" />
+          <column index="1" width="100" />
+        </state>
+      </provider>
+      <provider editor-type-id="csv-text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/filehandling/Csvhandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -385,12 +435,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+        <state relative-caret-position="289">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1091#1099#0" expanded="true" />
-            <element signature="e#1216#1224#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/searchengines/Google.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Google#0;class#Google#0" />
+            <element signature="method#csvReader#0;class#Google#0" />
+            <element signature="method#goStartPage#0;class#Google#0" />
+            <element signature="method#fillInputField#0;class#Google#0" />
+            <element signature="method#clickSearchButton#0;class#Google#0" />
+            <element signature="method#sitchCategoryToVideo#0;class#Google#0" />
           </folding>
         </state>
       </provider>

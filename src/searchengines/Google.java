@@ -1,16 +1,17 @@
 package searchengines;
 
+import filehandling.Csvhandler;
 import com.opencsv.CSVReader;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+
 
 public class Google {
 
@@ -23,13 +24,15 @@ public class Google {
     private List<String> google_searchresult_link;
     private String google_csv="\\src\\searchengines\\google.csv";
 
+    public Google() throws IOException {
+        this.csvReader();
+    }
 
-    public Google()throws IOException {
+    private void csvReader() throws IOException{
         String cwd = new File("").getAbsolutePath();
-        String google_csv = cwd+this.google_csv;
+        this.google_csv = cwd+this.google_csv;
 
-//        Read CSV from file
-        try (CSVReader csvReader = new CSVReader(new FileReader(google_csv))) {
+        try (CSVReader csvReader = new CSVReader(new FileReader(this.google_csv))) {
 
             List<String> url_elements = new ArrayList<>(Arrays.asList(csvReader.readNext()));
             this.google_url = url_elements.get(1);
@@ -44,31 +47,58 @@ public class Google {
             this.google_searchresult_link.add(Arrays.asList(csvReader.readNext()).get(1));
             this.google_searchresult_link.add(Arrays.asList(csvReader.readNext()).get(1));
         }
+    }
 
+    public static void writeResultsToCsv(List names, @NotNull List links) throws IOException{
+        Csvhandler toFile = new Csvhandler();
+        toFile.csvhandler(names, links);
+    }
+
+    private void readResults(int course_amount, FirefoxDriver driver){
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<String> links = new ArrayList<>();
+        int name_counter=1;
+        int link_counter=1;
+
+        for (int i=0; i<course_amount; i++){
+            WebElement firstCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0) + name_counter + google_searchresult_name.get(1)));
+            String name1 = firstCourseName.getText();
+            String name1Converted = name1.replace(',','-');
+            System.out.println(name1Converted);
+            names.add(name1Converted);
+            name_counter++;
+
+            WebElement firstCourseLink = driver.findElement(By.cssSelector(google_searchresult_link.get(0) + link_counter + google_searchresult_link.get(1)));
+            String link1 = firstCourseLink.getAttribute("href");
+            System.out.println(link1);
+            links.add(link1);
+            link_counter++;
+        }
+        this.google_searchresult_name = names;
+        this.google_searchresult_link = links;
     }
 
     @Contract(pure = true)
     private String getGoogle_url(){ return this.google_url; }
     @Contract(pure = true)
-    private String getTraining_text(){
-        return this.training_text;
-    }
+    private String getTraining_text(){ return this.training_text; }
     @Contract(pure = true)
     private String getInput_field() { return this.input_field; }
     @Contract(pure = true)
     private String getGoogle_search_button() {return this.google_search_button; }
     @Contract(pure = true)
     private String getGoogle_category_videos() { return this.google_category_videos; }
-    public List getGoogle_searchresult_name() { return google_searchresult_name; }
-    public List getGoogle_searchresult_link() { return google_searchresult_link; }
 
+    public List getGoogle_searchresult_name() { return this.google_searchresult_name; }
+    public List getGoogle_searchresult_link() { return this.google_searchresult_link; }
 
-    public FirefoxDriver initBrowser(){
+    public FirefoxDriver initBrowser(int course_amount){
         FirefoxDriver driver=new FirefoxDriver();
         this.goStartPage(driver);
         this.fillInputField(driver);
         this.clickSearchButton(driver);
         this.switchCategoryToVideo(driver);
+        this.readResults(course_amount, driver);
         return driver;
     }
 

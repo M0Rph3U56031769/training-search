@@ -1,4 +1,4 @@
-package filehandling;
+package trainingsearch.filehandling;
 
 import org.jetbrains.annotations.NotNull;
 

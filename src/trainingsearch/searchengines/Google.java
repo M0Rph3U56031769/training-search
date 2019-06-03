@@ -1,6 +1,6 @@
-package searchengines;
+package trainingsearch.searchengines;
 
-import filehandling.Csvhandler;
+import trainingsearch.filehandling.Csvhandler;
 import com.opencsv.CSVReader;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +22,7 @@ public class Google {
     private String google_category_videos;
     private List<String> google_searchresult_name;
     private List<String> google_searchresult_link;
-    private String google_csv="\\src\\searchengines\\google.csv";
+    private String google_csv="\\src\\trainingsearch\\searchengines\\google.csv";
 
     public Google() throws IOException {
         this.csvReader();
@@ -54,25 +54,36 @@ public class Google {
         toFile.csvhandler(names, links);
     }
 
-    private void readResults(int course_amount, FirefoxDriver driver){
+    private void readResults(int course_amount, FirefoxDriver driver) {
         ArrayList<String> names = new ArrayList<>();
         ArrayList<String> links = new ArrayList<>();
         int name_counter=1;
         int link_counter=1;
 
-        for (int i=0; i<course_amount; i++){
-            WebElement firstCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0) + name_counter + google_searchresult_name.get(1)));
-            String name1 = firstCourseName.getText();
-            String name1Converted = name1.replace(',','-');
-            System.out.println(name1Converted);
-            names.add(name1Converted);
-            name_counter++;
+        if (course_amount > 6){
+            course_amount = 6;
+        }
 
-            WebElement firstCourseLink = driver.findElement(By.cssSelector(google_searchresult_link.get(0) + link_counter + google_searchresult_link.get(1)));
-            String link1 = firstCourseLink.getAttribute("href");
-            System.out.println(link1);
-            links.add(link1);
-            link_counter++;
+        for (int i=0; i<course_amount; i++){
+            try {
+                WebElement firstCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0) + name_counter + google_searchresult_name.get(1)));
+                String name1 = firstCourseName.getText();
+                String name1Converted = name1.replace(',','-');
+                System.out.println(name1Converted);
+                names.add(name1Converted);
+                name_counter++;
+
+                WebElement firstCourseLink = driver.findElement(By.cssSelector(google_searchresult_link.get(0) + link_counter + google_searchresult_link.get(1)));
+                String link1 = firstCourseLink.getAttribute("href");
+                System.out.println(link1);
+                links.add(link1);
+                link_counter++;
+            }
+            catch (org.openqa.selenium.NoSuchElementException e){
+//                System.out.println("Results Value is too high");
+                throw new NoSuchElementException("Results Value is too high. Use a number(int) between 1 and 10!");
+            }
+
         }
         this.google_searchresult_name = names;
         this.google_searchresult_link = links;

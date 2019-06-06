@@ -1,25 +1,35 @@
-import org.openqa.selenium.firefox.FirefoxDriver;
 import trainingsearch.searchengines.Google;
-
 import java.io.IOException;
-import java.util.NoSuchElementException;
+
 
 public class Main {
-    public static void main(String[] args) throws IOException {
 
-        Google google_properties = new Google();
+    public static void main(String[] args) throws Exception {
 
-//        Init webdriver
-        try {
-            FirefoxDriver browser = google_properties.initBrowser(700);
-            browser.quit();
+        String google_csv = "";
+
+//        HashMap for keyword args:
+
+//        HashMap<String, String> params = convertToKeyValuePair(args);
+//        params.forEach((k, v) -> System.out.println("Key : " + k + " Value : " + v));
+
+        String help = "HELP: \n\n" +
+                "" +
+                "usage: [script] --help \n" +
+                "\n" +
+                "Arguments: \n" +
+                "-h --help          this help message\n" +
+                "-v --version       print version number\n";
+        for (int i=0; i<args.length; i++){
+            if (args[i].equals("--Google-csv")){
+                System.out.println("GOOGLE CSV LOCATION: "+args[i]+" "+args[i+1]);
+//                google_csv = args[i+1];
+            }
         }
-        catch (NoSuchElementException e){
-            System.exit(1);
-        }
 
-        System.out.println("NAMES FINAL: "+google_properties.getGoogle_searchresult_name().toString());
-        System.out.println("LINKS FINAL: "+google_properties.getGoogle_searchresult_link().toString());
-        Google.writeResultsToCsv(google_properties.getGoogle_searchresult_name(),google_properties.getGoogle_searchresult_link());
+//        USAGE:
+
+        Google google_properties = new Google("robot framework");
+        google_properties.searchTrainings(10);
     }
 }

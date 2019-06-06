@@ -1,5 +1,9 @@
 package trainingsearch.searchengines;
 
+import org.jetbrains.annotations.Nullable;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import trainingsearch.Columns;
 import trainingsearch.filehandling.Csvhandler;
 import com.opencsv.CSVReader;
 import org.jetbrains.annotations.Contract;
@@ -7,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 
@@ -22,96 +26,140 @@ public class Google {
     private String google_category_videos;
     private List<String> google_searchresult_name;
     private List<String> google_searchresult_link;
-    private String google_csv="\\src\\trainingsearch\\searchengines\\google.csv";
+    private List<String> google_timestamp;
+    private Boolean custom_text = false;
 
-    public Google() throws IOException {
+
+    public Google(String training_text) throws Exception {
+        this.training_text = training_text;
+        this.custom_text = true;
         this.csvReader();
     }
 
-    private void csvReader() throws IOException{
-        String cwd = new File("").getAbsolutePath();
-        this.google_csv = cwd+this.google_csv;
+    public Google() throws Exception {this.csvReader();}
 
-        try (CSVReader csvReader = new CSVReader(new FileReader(this.google_csv))) {
-
-            List<String> url_elements = new ArrayList<>(Arrays.asList(csvReader.readNext()));
-            this.google_url = url_elements.get(1);
-            this.input_field = Arrays.asList(csvReader.readNext()).get(1);
-            this.training_text = Arrays.asList(csvReader.readNext()).get(1);
-            this.google_search_button = Arrays.asList(csvReader.readNext()).get(1);
-            this.google_category_videos = Arrays.asList(csvReader.readNext()).get(1);
-            this.google_searchresult_name = new ArrayList<>();
-            this.google_searchresult_name.add(Arrays.asList(csvReader.readNext()).get(1));
-            this.google_searchresult_name.add(Arrays.asList(csvReader.readNext()).get(1));
-            this.google_searchresult_link = new ArrayList<>();
-            this.google_searchresult_link.add(Arrays.asList(csvReader.readNext()).get(1));
-            this.google_searchresult_link.add(Arrays.asList(csvReader.readNext()).get(1));
+    @Contract("null -> fail")
+    private static void validateNull(@Nullable final Object object) throws Exception {
+        if (object == null) {
+            throw new Exception();
         }
     }
 
-    public static void writeResultsToCsv(List names, @NotNull List links) throws IOException{
-        Csvhandler toFile = new Csvhandler();
-        toFile.csvhandler(names, links);
+    private void csvReader() throws Exception {
+
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("google.csv");
+        Scanner scanner;
+        validateNull(is);
+        scanner = new Scanner(is, StandardCharsets.UTF_8.name());
+        String text = scanner.useDelimiter("\\A").next();
+        System.out.println("Loading google.csv as a Stream: \n\n"+text);
+        CSVReader csvReader = new CSVReader(new StringReader(text));
+        List<String> url_elements = new ArrayList<>(Arrays.asList(csvReader.readNext()));
+        this.google_url = url_elements.get(1);
+        this.input_field = Arrays.asList(csvReader.readNext()).get(1);
+        if (!this.custom_text){ this.training_text = Arrays.asList(csvReader.readNext()).get(1);}
+        else { csvReader.readNext(); }
+        this.google_search_button = Arrays.asList(csvReader.readNext()).get(1);
+        this.google_category_videos = Arrays.asList(csvReader.readNext()).get(1);
+        this.google_searchresult_name = new ArrayList<>();
+        this.google_searchresult_name.add(Arrays.asList(csvReader.readNext()).get(1));
+        this.google_searchresult_name.add(Arrays.asList(csvReader.readNext()).get(1));
+        this.google_searchresult_link = new ArrayList<>();
+        this.google_searchresult_link.add(Arrays.asList(csvReader.readNext()).get(1));
+        this.google_searchresult_link.add(Arrays.asList(csvReader.readNext()).get(1));
+        this.google_timestamp = new ArrayList<>();
+        this.google_timestamp.add(Arrays.asList(csvReader.readNext()).get(1));
+        this.google_timestamp.add(Arrays.asList(csvReader.readNext()).get(1));
+    }
+
+    private static void writeResultsToCsv(List names, @NotNull List links, List timestamps) throws IOException{
+        var toFile = new Csvhandler();
+        toFile.csvhandler(names, links, timestamps);
     }
 
     private void readResults(int course_amount, FirefoxDriver driver) {
         ArrayList<String> names = new ArrayList<>();
         ArrayList<String> links = new ArrayList<>();
-        int name_counter=1;
-        int link_counter=1;
+        ArrayList<String> timestamps = new ArrayList<>();
 
-        if (course_amount > 6){
-            course_amount = 6;
+        if (course_amount > 11){
+            course_amount = 11;
         }
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.g:nth-child(11) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > h3:nth-child(1)")));
+        driver.findElement(By.cssSelector("div.g:nth-child(11) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > h3:nth-child(1)"));
 
         for (int i=0; i<course_amount; i++){
             try {
-                WebElement firstCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0) + name_counter + google_searchresult_name.get(1)));
+                if ( i == 6 ){i=7;}
+                WebElement timestamp = driver.findElement(By.cssSelector(google_timestamp.get(0) + (i+1) + google_timestamp.get(1)));
+                String timestampvalue = timestamp.getText();
+                timestamps.add(timestampvalue.substring(2));
+
+                WebElement firstCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0) + (i+1) + google_searchresult_name.get(1)));
                 String name1 = firstCourseName.getText();
                 String name1Converted = name1.replace(',','-');
-                System.out.println(name1Converted);
+                System.out.println("[ course number: "+i+" - " + timestampvalue + " - "+name1Converted+" ]");
                 names.add(name1Converted);
-                name_counter++;
 
-                WebElement firstCourseLink = driver.findElement(By.cssSelector(google_searchresult_link.get(0) + link_counter + google_searchresult_link.get(1)));
+
+
+                WebElement firstCourseLink = driver.findElement(By.cssSelector(google_searchresult_link.get(0) + (i+1) + google_searchresult_link.get(1)));
                 String link1 = firstCourseLink.getAttribute("href");
-                System.out.println(link1);
+                System.out.println("[ "+link1+" ]\n");
                 links.add(link1);
-                link_counter++;
             }
             catch (org.openqa.selenium.NoSuchElementException e){
-//                System.out.println("Results Value is too high");
-                throw new NoSuchElementException("Results Value is too high. Use a number(int) between 1 and 10!");
+                throw new NoSuchElementException("The course_amount Value is too high. Use a number(int) between 1 and 10! Otherwise it will be limited to 11!");
             }
 
         }
         this.google_searchresult_name = names;
         this.google_searchresult_link = links;
+        this.google_timestamp = timestamps;
     }
 
-    @Contract(pure = true)
+//    @Contract(pure = true)
     private String getGoogle_url(){ return this.google_url; }
     @Contract(pure = true)
     private String getTraining_text(){ return this.training_text; }
     @Contract(pure = true)
     private String getInput_field() { return this.input_field; }
-    @Contract(pure = true)
+//    @Contract(pure = true)
     private String getGoogle_search_button() {return this.google_search_button; }
-    @Contract(pure = true)
+//    @Contract(pure = true)
     private String getGoogle_category_videos() { return this.google_category_videos; }
 
-    public List getGoogle_searchresult_name() { return this.google_searchresult_name; }
-    public List getGoogle_searchresult_link() { return this.google_searchresult_link; }
+    private List getGoogle_searchresult_name() { return this.google_searchresult_name; }
+    private List getGoogle_searchresult_link() { return this.google_searchresult_link; }
+    private List getGoogle_timestamp() { return this.google_timestamp; }
 
-    public FirefoxDriver initBrowser(int course_amount){
+    public void searchTrainings(int course_amount) throws IOException{
         FirefoxDriver driver=new FirefoxDriver();
         this.goStartPage(driver);
         this.fillInputField(driver);
         this.clickSearchButton(driver);
         this.switchCategoryToVideo(driver);
         this.readResults(course_amount, driver);
-        return driver;
+        driver.close();
+        writeResultsToCsv(this.getGoogle_searchresult_name(),this.getGoogle_searchresult_link(),this.getGoogle_timestamp());
+        this.printResults();
     }
+
+
+    private void printResults() throws IOException{
+        BufferedReader csvfile = new BufferedReader(new FileReader("google_links.csv"));
+        Columns col = new Columns();
+        String row;
+        while ((row = csvfile.readLine()) != null) {
+            col.addLine(row.split(","));
+        }
+        System.out.println("Reading values from: google_links.csv\n\n");
+        col.print();
+        csvfile.close();
+    }
+
 
     @Contract("_ -> param1")
     private FirefoxDriver goStartPage(@NotNull FirefoxDriver browser){
@@ -121,7 +169,7 @@ public class Google {
     @Contract("_ -> param1")
     private FirefoxDriver fillInputField(@NotNull FirefoxDriver browser) {
         WebElement element=browser.findElement(By.cssSelector(this.getInput_field()));
-        element.sendKeys(this.getTraining_text());
+        element.sendKeys(this.getTraining_text()+" training");
         return browser;
     }
     @Contract("_ -> param1")

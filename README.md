@@ -2,7 +2,7 @@
 just a small practice for selenium and java
 
 # How to use as a library?
-Just create a .jar file, and import it as dependency in your project. 
+Just create a .jar file or download the JAR file(link above), and import it as dependency in your project. 
 
 # Usage exapmle
 

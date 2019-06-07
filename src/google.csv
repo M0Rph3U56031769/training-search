@@ -2,7 +2,7 @@
 "google_input_field","input[name=q]"
 "trainingtext","inUrl: youtube.com selenium"
 "google_search_button","center:nth-child(1) > input:nth-child(1)"
-"google_category_videos","div.hdtb-mitem:nth-child(2) > a:nth-child(1)"
+"google_category_videos","Vide"
 "google_searchresult_name_part1","div.g:nth-child("
 "google_searchresult_name_part2",") > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > h3:nth-child(1)"
 "google_searchresult_link_part1","div.g:nth-child("

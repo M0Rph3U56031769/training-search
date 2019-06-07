@@ -26,7 +26,7 @@ public class Main {
 
 //        USAGE:
 
-        Google google_properties = new Google("robot framework");
-        google_properties.searchTrainings(10);
+        Google google_properties = new Google("robot framework", "linkedin.com");
+        google_properties.searchTrainings(11);
     }
 }

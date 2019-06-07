@@ -28,7 +28,14 @@ public class Google {
     private List<String> google_searchresult_link;
     private List<String> google_timestamp;
     private Boolean custom_text = false;
+    private String curstomplatform = "";
 
+    public Google(String training_text, String curstomplatform) throws Exception {
+        this.curstomplatform = curstomplatform;
+        this.training_text = training_text;
+        this.custom_text = true;
+        this.csvReader();
+    }
 
     public Google(String training_text) throws Exception {
         this.training_text = training_text;
@@ -87,15 +94,20 @@ public class Google {
         }
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.g:nth-child(11) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > h3:nth-child(1)")));
-        driver.findElement(By.cssSelector("div.g:nth-child(11) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > h3:nth-child(1)"));
+//        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.g:nth-child(11) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) > h3:nth-child(1)")));
+//        driver.findElement(By.cssSelector("/html/body/div[5]/div[3]/div[11]/div/div/div/div[2]"));
+//        driver.findElement(By.linkText("Videók"));
 
         for (int i=0; i<course_amount; i++){
             try {
                 if ( i == 6 ){i=7;}
                 WebElement timestamp = driver.findElement(By.cssSelector(google_timestamp.get(0) + (i+1) + google_timestamp.get(1)));
                 String timestampvalue = timestamp.getText();
-                timestamps.add(timestampvalue.substring(2));
+
+                try { timestamps.add(timestampvalue.substring(2));}
+                catch (StringIndexOutOfBoundsException e){
+                    timestamps.add("N/A");
+                }
 
                 WebElement firstCourseName = driver.findElement(By.cssSelector(google_searchresult_name.get(0) + (i+1) + google_searchresult_name.get(1)));
                 String name1 = firstCourseName.getText();
@@ -113,26 +125,27 @@ public class Google {
             catch (org.openqa.selenium.NoSuchElementException e){
                 throw new NoSuchElementException("The course_amount Value is too high. Use a number(int) between 1 and 10! Otherwise it will be limited to 11!");
             }
-
         }
         this.google_searchresult_name = names;
         this.google_searchresult_link = links;
         this.google_timestamp = timestamps;
     }
 
-//    @Contract(pure = true)
+    @Contract(pure = true)
     private String getGoogle_url(){ return this.google_url; }
     @Contract(pure = true)
     private String getTraining_text(){ return this.training_text; }
     @Contract(pure = true)
     private String getInput_field() { return this.input_field; }
-//    @Contract(pure = true)
+    @Contract(pure = true)
     private String getGoogle_search_button() {return this.google_search_button; }
-//    @Contract(pure = true)
+    @Contract(pure = true)
     private String getGoogle_category_videos() { return this.google_category_videos; }
-
+    @Contract(pure = true)
     private List getGoogle_searchresult_name() { return this.google_searchresult_name; }
+    @Contract(pure = true)
     private List getGoogle_searchresult_link() { return this.google_searchresult_link; }
+    @Contract(pure = true)
     private List getGoogle_timestamp() { return this.google_timestamp; }
 
     public void searchTrainings(int course_amount) throws IOException{
@@ -165,15 +178,21 @@ public class Google {
     }
     private void fillInputField(@NotNull FirefoxDriver browser) {
         WebElement element=browser.findElement(By.cssSelector(this.getInput_field()));
-        element.sendKeys(this.getTraining_text()+" training");
+        element.sendKeys(String.format("site %s %s training", this.curstomplatform, this.getTraining_text()));
     }
     private void clickSearchButton(@NotNull FirefoxDriver browser){
         WebElement button=browser.findElement(By.cssSelector(this.getGoogle_search_button()));
         button.click();
     }
     private void switchCategoryToVideo(@NotNull FirefoxDriver browser){
-        WebElement vidi = browser.findElement(By.cssSelector(this.getGoogle_category_videos()));
-        vidi.click();
+        try {
+            WebElement vidi = browser.findElement(By.partialLinkText(getGoogle_category_videos()));
+            vidi.click();
+        }
+        catch (NoSuchElementException e ){
+            System.out.println("[ ERROR ] Can't find Video category.\n");
+            System.exit(1);
+        }
     }
 
 }

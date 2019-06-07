@@ -1,12 +1,10 @@
+import org.jetbrains.annotations.NotNull;
 import trainingsearch.searchengines.Google;
-import java.io.IOException;
 
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
-
-        String google_csv = "";
+    public static void main(@NotNull String[] args) throws Exception {
 
 //        HashMap for keyword args:
 
@@ -23,7 +21,6 @@ public class Main {
         for (int i=0; i<args.length; i++){
             if (args[i].equals("--Google-csv")){
                 System.out.println("GOOGLE CSV LOCATION: "+args[i]+" "+args[i+1]);
-//                google_csv = args[i+1];
             }
         }
 

@@ -160,29 +160,20 @@ public class Google {
         csvfile.close();
     }
 
-
-    @Contract("_ -> param1")
-    private FirefoxDriver goStartPage(@NotNull FirefoxDriver browser){
+    private void goStartPage(@NotNull FirefoxDriver browser){
         browser.get(this.getGoogle_url());
-        return browser;
     }
-    @Contract("_ -> param1")
-    private FirefoxDriver fillInputField(@NotNull FirefoxDriver browser) {
+    private void fillInputField(@NotNull FirefoxDriver browser) {
         WebElement element=browser.findElement(By.cssSelector(this.getInput_field()));
         element.sendKeys(this.getTraining_text()+" training");
-        return browser;
     }
-    @Contract("_ -> param1")
-    private FirefoxDriver clickSearchButton(@NotNull FirefoxDriver browser){
+    private void clickSearchButton(@NotNull FirefoxDriver browser){
         WebElement button=browser.findElement(By.cssSelector(this.getGoogle_search_button()));
         button.click();
-        return browser;
     }
-    @Contract("_ -> param1")
-    private FirefoxDriver switchCategoryToVideo(@NotNull FirefoxDriver browser){
+    private void switchCategoryToVideo(@NotNull FirefoxDriver browser){
         WebElement vidi = browser.findElement(By.cssSelector(this.getGoogle_category_videos()));
         vidi.click();
-        return browser;
     }
 
 }

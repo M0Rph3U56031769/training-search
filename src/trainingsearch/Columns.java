@@ -14,7 +14,7 @@ public class Columns {
     private List<Integer> maxLengths = new ArrayList<>();
     private int numColumns = -1;
 
-    public Columns addLine(String... line) {
+    public void addLine(String... line) {
 
         if (numColumns == -1){
             numColumns = line.length;
@@ -39,7 +39,6 @@ public class Columns {
 
         lines.add( Arrays.asList(line) );
 
-        return this;
     }
 
     public void print(){
@@ -57,6 +56,7 @@ public class Columns {
         return result.toString();
     }
 
+    @NotNull
     @Contract(pure = true)
     private String pad(@NotNull String word, int newLength){
         StringBuilder wordB = new StringBuilder();

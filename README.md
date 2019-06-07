@@ -19,3 +19,10 @@ Google google_properties = new Google("robot framework", "youtube.com");
 //Search will print out the results and it will create a csv file.
 
 google_properties.searchTrainings(10);
+
+
+# Release
+
+JAR:
+
+https://drive.google.com/file/d/1MV-q9c7WnQu-sjgtLYvndCrRoz6_HJFh/view?usp=sharing

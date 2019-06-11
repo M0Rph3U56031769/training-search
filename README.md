@@ -6,19 +6,18 @@ Just create a .jar file or download the JAR file(link above), and import it as d
 
 # Usage exapmle
 
-`// Just define the training name`
+```// Just define the training name
 
-`Google google_properties = new Google("robot framework");`
+Google google_properties = new Google("robot framework");```
 
 
 OR
 
 
-`Google google_properties = new Google("robot framework", "youtube.com");`
+```Google google_properties = new Google("robot framework", "youtube.com");
 
-`// Search will print out the results and it will create a csv file.`
-
-`google_properties.searchTrainings(10);`
+// Search will print out the results and it will create a csv file.
+google_properties.searchTrainings(10);```
 
 
 # Release
